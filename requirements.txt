@@ -3,4 +3,4 @@ mock
 pydub
 ipython
 tqdm
-colab-a11y-util
+colab-a11y-utils

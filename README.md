@@ -2,7 +2,7 @@
 WIP
 
 ```
-from colab-a11y-util import set_sound_notification, tqdm
+from colab_a11y_utils import set_sound_notification, tqdm
 
 set_sound_notification()
 
@@ -26,13 +26,13 @@ index-servers = pypi
 repository: https://upload.pypi.org/legacy/
 username: YOUR_USERNAME
 password: YOUR_PASSWORD
-$ rm -rf colab_a11y_util.egg-info dist # if necessary
+$ rm -rf colab_a11y_utils.egg-info dist # if necessary
 $ python setup.py sdist
 $ twine upload --repository pypi dist/*
-$ pip --no-cache-dir install --upgrade colab-a11y-util
+$ pip --no-cache-dir install --upgrade colab-a11y-utils
 ```
 
-https://pypi.org/project/colab-a11y-util/
+https://pypi.org/project/colab-a11y-utils/
 
 ## Contributing
 
