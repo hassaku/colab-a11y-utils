@@ -17,6 +17,7 @@ def set_sound_notification():
         sound = Triangle(440).to_audio_segment(duration=50).apply_gain(-10).fade_in(20).fade_out(20)
         display(InvisibleAudio(data=sound.export().read(), autoplay=True))
 
+
     def sound_notification_after(*args):
         sound = Triangle(440).to_audio_segment(duration=50).apply_gain(-10).fade_in(20).fade_out(20)
         sound += AudioSegment.silent(duration=100)
@@ -32,7 +33,12 @@ class tqdm(original_tqdm):
     def display(self, *args, **kwargs):
         progress_rate = self.n / self.total
 
-        sound = Triangle(523.23 + progress_rate*523.27).to_audio_segment(duration=100).apply_gain(-10).fade_in(20).fade_out(20)
+		sound = Triangle(523.23 + progress_rate*523.27).to_audio_segment(duration=100)\
+            .apply_gain(-10)\
+            .fade_in(20)\
+            .fade_out(20)\
+            .pan(-1.0 + progress_rate * 2)
+
         display(InvisibleAudio(data=sound.export().read(), autoplay=True))
 
         super(tqdm, self).display(*args, **kwargs)
