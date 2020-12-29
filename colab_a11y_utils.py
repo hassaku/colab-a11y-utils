@@ -1,8 +1,20 @@
 from pydub import AudioSegment
 from pydub.generators import Sine, Pulse, Square, Sawtooth, Triangle, WhiteNoise
 from IPython.display import Audio, display
-
 from tqdm.notebook import tqdm as original_tqdm
+
+
+def speak(utterance):
+    js = """
+    <script>
+    window.speechSynthesis.cancel();
+    let msg = new SpeechSynthesisUtterance("%s");
+    msg.lang = "en-US";
+    window.speechSynthesis.speak(msg);
+    </script>
+    """ % utterance
+
+    display(HTML(js))
 
 
 class InvisibleAudio(Audio):
