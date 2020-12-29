@@ -2,6 +2,7 @@ from pydub import AudioSegment
 from pydub.generators import Sine, Pulse, Square, Sawtooth, Triangle, WhiteNoise
 from IPython.display import Audio, display
 from tqdm.notebook import tqdm as original_tqdm
+from IPython.core.ultratb import AutoFormattedTB
 
 
 def speak(utterance):
@@ -25,15 +26,29 @@ class InvisibleAudio(Audio):
 
 
 def __sound_notification_before(*args):
-	sound = Triangle(440).to_audio_segment(duration=50).apply_gain(-10).fade_in(20).fade_out(20)
-	display(InvisibleAudio(data=sound.export().read(), autoplay=True))
+    sound = Triangle(440).to_audio_segment(duration=50).apply_gain(-20).fade_in(20).fade_out(20)
+    sound += AudioSegment.silent(duration=100)
+    display(InvisibleAudio(data=sound.export().read(), autoplay=True))
+
+
+def __sound_notification_success(*args):
+    HZ = 540
+    sound = Triangle(HZ).to_audio_segment(duration=100).apply_gain(-20).fade_in(20).fade_out(20)
+    sound += AudioSegment.silent(duration=100)
+    sound += Triangle(HZ).to_audio_segment(duration=100).apply_gain(-20).fade_in(20).fade_out(20)
+    display(InvisibleAudio(data=sound.export().read(), autoplay=True))
+
+
+def __sound_notification_error(*args):
+    HZ = 100
+    sound = Sawtooth(HZ).to_audio_segment(duration=100).apply_gain(-20).fade_in(20).fade_out(20)
+    sound += AudioSegment.silent(duration=100)
+    sound += Sawtooth(HZ).to_audio_segment(duration=100).apply_gain(-20).fade_in(20).fade_out(20)
+    display(InvisibleAudio(data=sound.export().read(), autoplay=True))
 
 
 def __sound_notification_after(*args):
-	sound = Triangle(440).to_audio_segment(duration=50).apply_gain(-10).fade_in(20).fade_out(20)
-	sound += AudioSegment.silent(duration=100)
-	sound += Triangle(440).to_audio_segment(duration=300).apply_gain(-10).fade_in(20).fade_out(20)
-	display(InvisibleAudio(data=sound.export().read(), autoplay=True))
+    __sound_notification_success()
 
 
 def __remove_callback(callback_name, function_name):
@@ -43,17 +58,22 @@ def __remove_callback(callback_name, function_name):
                ipython_events.callbacks[callback_name]))
 
 
-def set_sound_notification():
-    unset_sound_notification()
-    ipython_events = get_ipython().events
-    ipython_events.register('pre_run_cell', __sound_notification_before)
-    ipython_events.register('post_run_cell', __sound_notification_after)
+def __sound_error(shell, etype, evalue, tb, tb_offset=None):
+	shell.showtraceback((etype, evalue, tb), tb_offset=tb_offset)
+	__sound_notification_error()
 
 
-def unset_sound_notification():
+def unset_sound_notifications():
     __remove_callback("pre_run_cell", "__sound_notification_before")
     __remove_callback("post_run_cell", "__sound_notification_after")
 
+
+def set_sound_notifications():
+    unset_sound_notifications()
+    ipython_events = get_ipython().events
+    ipython_events.register('pre_run_cell', __sound_notification_before)
+    ipython_events.register('post_run_cell', __sound_notification_after)
+	get_ipython().set_custom_exc((Exception,), __sound_error)
 
 
 class tqdm(original_tqdm):
