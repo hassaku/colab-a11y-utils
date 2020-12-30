@@ -59,8 +59,8 @@ def __remove_callback(callback_name, function_name):
 
 
 def __sound_error(shell, etype, evalue, tb, tb_offset=None):
-	shell.showtraceback((etype, evalue, tb), tb_offset=tb_offset)
-	__sound_notification_error()
+    shell.showtraceback((etype, evalue, tb), tb_offset=tb_offset)
+    __sound_notification_error()
 
 
 def unset_sound_notifications():
@@ -73,14 +73,14 @@ def set_sound_notifications():
     ipython_events = get_ipython().events
     ipython_events.register('pre_run_cell', __sound_notification_before)
     ipython_events.register('post_run_cell', __sound_notification_after)
-	get_ipython().set_custom_exc((Exception,), __sound_error)
+    get_ipython().set_custom_exc((Exception,), __sound_error)
 
 
 class tqdm(original_tqdm):
     def display(self, *args, **kwargs):
         progress_rate = self.n / self.total
 
-		sound = Triangle(523.23 + progress_rate*523.27).to_audio_segment(duration=100)\
+        sound = Triangle(523.23 + progress_rate*523.27).to_audio_segment(duration=100)\
             .apply_gain(-10)\
             .fade_in(20)\
             .fade_out(20)\
