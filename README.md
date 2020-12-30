@@ -10,7 +10,7 @@ This library provides the following functions in Google Colab
 
 See the following example.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hassaku/colab-a11y-utils/blob/master/notebooks/colab_a11y_util_example.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hassaku/colab-a11y-utils/blob/master/colab_a11y_util_example.ipynb)
 
 # For contributer
 
