@@ -1,15 +1,16 @@
+# colab-a11y-util
 
-WIP
+This library provides the following functions in Google Colab
+- Notification by sound at the time of cell execution
+  - One beep sound when executed
+  - Two beep sounds when normal completion
+  - Two buzzer sounds when abnormal completion
+- Sound notification of progress bar by tqdm
+- Simple audio output function that can be used instead of print
 
-```
-from colab_a11y_utils import set_sound_notification, tqdm
+See the following example.
 
-set_sound_notification()
-
-import time
-for epoch in tqdm(range(10)):
-    time.sleep(1)
-```
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hassaku/colab-a11y-utils/blob/master/notebooks/colab_a11y_util_example.ipynb)
 
 # For contributer
 
