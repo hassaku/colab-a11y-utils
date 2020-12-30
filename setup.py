@@ -9,7 +9,7 @@ with open("README.md") as f:
 
 setup(
     name="colab-a11y-utils",
-    version="0.0.2",
+    version="0.0.3",
     description="Tools to improve Google Colab experience for screen reader users",
     long_description=long_description,
     long_description_content_type="text/markdown",
