@@ -3,6 +3,7 @@ from pydub.generators import Sine, Pulse, Square, Sawtooth, Triangle, WhiteNoise
 from IPython.display import Audio, display
 from tqdm.notebook import tqdm as original_tqdm
 from IPython.core.ultratb import AutoFormattedTB
+from IPython.display import HTML, display
 
 
 def speak(utterance):
