@@ -63,9 +63,14 @@ def __sound_error(shell, etype, evalue, tb, tb_offset=None):
     __sound_notification_error()
 
 
+def __silent_error(shell, etype, evalue, tb, tb_offset=None):
+    shell.showtraceback((etype, evalue, tb), tb_offset=tb_offset)
+
+
 def unset_sound_notifications():
     __remove_callback("pre_run_cell", "__sound_notification_before")
     __remove_callback("post_run_cell", "__sound_notification_after")
+    get_ipython().set_custom_exc((Exception,), __silent_error)
 
 
 def set_sound_notifications():
