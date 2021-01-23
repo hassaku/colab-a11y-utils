@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  improve Google Colab accessesibility
 // @author       hassaku
-// @match        https://colab.research.google.com/drive/*
+// @match        https://colab.research.google.com/*
 // @grant        none
 // ==/UserScript==
 
