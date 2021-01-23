@@ -17,6 +17,10 @@ function say(utterance) {
 
 (function() {
     'use strict';
+    window.setTimeout(function(){
+        window.speechSynthesis.getVoices();
+        say("Tampermonkey colab-a11y-utils is enabled. To check the current execution status of the cell, press Ctrl+Q.");
+    }, 3000);
 
     window.onload = function(){
         window.setInterval(function(){
@@ -53,7 +57,12 @@ function say(utterance) {
                     } else if (div.querySelector("div > div.execution-count").innerText === "[ ]") {
                         say("Not executed in the current session");
                     } else {
-                        say("Executed");
+                        say("Executed, then scroll down to the result");
+
+                        let elementTop = runButton.closest("div.inputarea.horizontal.layout.code").getBoundingClientRect().bottom;
+                        let currentTop = document.querySelector("colab-shaded-scroller").scrollTop;
+                        let offset = 100; // this may not be appropriate
+                        document.querySelector("colab-shaded-scroller").scroll(0, currentTop + elementTop - offset);
                     }
                 }
             }
