@@ -87,7 +87,7 @@ class tqdm(original_tqdm):
         progress_rate = self.n / self.total
         pan = max(min(-1.0 + progress_rate * 2, 1.0), -1.0)
 
-        sound = Triangle(110*2**(progress_rate)/0.25).to_audio_segment(duration=50)\
+        sound = Triangle(110*2**(progress_rate/0.25)).to_audio_segment(duration=50)\
             .apply_gain(-10)\
             .fade_in(5)\
             .fade_out(5)\
